@@ -8,31 +8,32 @@
   </head>
   <body>
     <main>
+      <!-- Navbar -->
       <nav>
         <div class="left">Kanban</div>
         <div class="right"><button id="toggle-modal">Add new task</button></div>
       </nav>
+
+      <!-- Board section -->
       <section class="board">
+
+        <!-- To do column -->
         <div id="to-do" class="task-column">
           <div class="heading">
             <div class="left">To Do</div>
             <div class="right">0</div>
           </div>
-          <!-- <div class="task" draggable="true">
-            <h2>Task 1</h2>
-            <p>
-              Lorem ipsum dolor sit Lorem, ipsum dolor sit amet consectetur
-              adipisicing elit. Praesentium
-            </p>
-            <button>Delete</button>
-          </div> -->
         </div>
+
+        <!-- Progress column -->
         <div id="progress" class="task-column">
           <div class="heading">
             <div class="left">In Progress</div>
             <div class="right">0</div>
           </div>
         </div>
+
+        <!-- Done column -->
         <div id="done" class="task-column">
           <div class="heading">
             <div class="left">Done</div>
@@ -41,6 +42,8 @@
         </div>
       </section>
     </main>
+
+    <!-- Modal to add new task -->
     <div class="modal">
       <div class="bg"></div>
       <div class="center">

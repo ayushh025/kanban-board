@@ -1,3 +1,4 @@
+// Select DOM elements
 const todo = document.querySelector("#to-do");
 const progress = document.querySelector("#progress");
 const done = document.querySelector("#done");
@@ -8,6 +9,7 @@ const addTaskBtn = document.querySelector("#add-new-task");
 const errMsgCon = document.querySelector(".err-msg");
 const columns = document.querySelectorAll(".task-column");
 
+// Variables for drag functionality and local storage
 let dragElement = null;
 const savedTask = JSON.parse(localStorage.getItem("tasks"));
 const allTasks = {};
@@ -22,18 +24,24 @@ if (savedTask) {
   }
 }
 
+// Open modal on button click
 toggleModal.addEventListener("click", () => {
   modal.classList.add("active");
 });
+
+// Close modal when clicking on background
 bg.addEventListener("click", () => {
   modal.classList.remove("active");
 });
+
+// Handle new task creation
 addTaskBtn.addEventListener("click", () => {
   errMsgCon.innerHTML = "";
   const taskTitle = document.querySelector("#task-title-input");
   const taskDesc = document.querySelector("#task-desc-input");
   let isValid = true;
 
+  // Validate input fields
   if (taskTitle.value.trim() === "") {
     const titleErr = document.createElement("p");
     titleErr.textContent = "Please Enter Title";
@@ -46,6 +54,8 @@ addTaskBtn.addEventListener("click", () => {
     errMsgCon.append(DescErr);
     isValid = false;
   }
+
+  // If valid, create task and close modal
   if (isValid) {
     createTask(taskTitle.value, taskDesc.value, todo);
     taskTitle.value = "";
@@ -54,10 +64,12 @@ addTaskBtn.addEventListener("click", () => {
   }
 });
 
+// Apply drag and drop functionality to all columns
 addDragEff(todo);
 addDragEff(progress);
 addDragEff(done);
 
+// Function to update count and task
 function updateCount() {
   columns.forEach((col) => {
     const count = col.querySelector(".right");
@@ -75,6 +87,7 @@ function updateCount() {
   localStorage.setItem("tasks", JSON.stringify(allTasks));
 }
 
+// Function to create a new task
 function createTask(taskTitle, taskDesc, column) {
   const task = document.createElement("div");
   task.draggable = true;
@@ -87,13 +100,13 @@ function createTask(taskTitle, taskDesc, column) {
   btn.textContent = "Delete";
   task.append(h2, p, btn);
 
-  // Delete logic
+  // Delete task and update storage
   btn.addEventListener("click", () => {
     task.remove();
     updateCount();
   });
 
-  // Drag logic
+  // Drag logic on task
   task.addEventListener("dragstart", () => {
     dragElement = task;
   });
